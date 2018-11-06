@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Writing DITA - Lesson</title>
+        <!-- =============================================
+            Adapted and modified content from GU Yiling:
+            http://justineo.github.io/slideshows/writing-css/
+            ==============================================-->
+
+        <meta name="description" content="A review of DITA Topic Types: Task, Concept, and Reference">
+        <meta name="author" content="Chris Lindgren">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/font-awesome.css">
+        <link rel="stylesheet" href="css/just.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="css/zenburn.css">
+
+        <style>
+            var::before {
+                content: "[";
+            }
+            var::after {
+                content: "]";
+            }
+            var::before,
+            var::after {
+                color: #666;
+                font-style: normal;
+            }
+            iframe {
+                box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+            }
+            span.type::before {
+                content: "‘<";
+            }
+            span.type::after {
+                content: ">’";
+            }
+            #overview-list li {
+                list-style-type: none;
+            }
+            #overview-list .fa {
+                display: inline-block;
+                width: 40px;
+            }
+            .left-title {
+              text-align: left;
+            }
+        </style>
+
+        <!-- If the query includes "print-pdf", include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( "link" );
+                link.rel = "stylesheet";
+                link.type = "text/css";
+                link.href = "../../reveal.js/css/print/pdf.css";
+                document.getElementsByTagName( "head" )[0].appendChild( link );
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>
+                      Writing with <abbr title="Darwin Information Typing Architecture">DITA</abbr> Topics:
+                    </h1>
+                    <p>
+                      <code>&lt;task&gt;</code>, <code>&lt;concept&gt;</code>, &amp; <code>&lt;reference&gt;</code>
+                    </p>
+                </section>
+
+                <!-- OVERVIEW -->
+                <section>
+                  <section>
+                  <h2>Topic Types:</h2>
+                    <ul id="overview-list">
+                      <li>
+                        <code>&lt;task&gt;</code>:
+                        <br />Tells how to do something, and usually includes numbered steps -- a procedure.
+                      </li>
+                      <br />
+                      <li>
+                        <code>&lt;concept&gt;</code>:
+                        <br />Describes something.
+                      </li>
+                      <br />
+                      <li>
+                        <code>&lt;reference&gt;</code>:
+                        <br />Explains details of interest about things and materials, and usually includes information in tables or lists.
+                      </li>
+                    </ul>
+                  </section>
+                </section>
+
+                <!-- TASK -->
+                <section>
+
+                    <section>
+                        <h2><code>&lt;task&gt;</code></h2>
+                    </section>
+
+                    <section>
+                        <h3>What is a <code>&lt;task&gt;</code>?</h3>
+                        <ul>
+                            <li class="fragment">
+                              Topic dedicated to procedural information
+                            </li>
+                            <li class="fragment">
+                              <code>&lt;concept&gt;</code> and <code>&lt;reference&gt;</code> topics support task topics, but are written in different <code>.dita</code> files.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3><code>&lt;task&gt;</code> best practices</h3>
+                        <ul>
+                          <li class="fragment">
+                            One procedure per topic
+                          </li>
+                          <li class="fragment">
+                            Create subtasks for longer procedures
+                          </li>
+                          <li class="fragment">
+                            Combine short, sequential steps
+                          </li>
+                          <li class="fragment">
+                            Every step should use an imperative sentence
+                          </li>
+                          <li class="fragment">
+                            Every <code>&lt;task&gt;</code> element should have a meaningful ID attribute: <code>&lt;task id="espresso-connect"&gt;</code>
+                          </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                      <h3>Common <code>&lt;task&gt;</code> elements</h3>
+                      <table style="font-size: 45%;">
+                          <thead>
+                              <tr>
+                                  <th>DITA ELEMENT</th>
+                                  <th>DESCRIPTION</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                                <td><code>&lt;title&gt;</code></td>
+                                <td>Provides the topic title</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;shortdesc&gt;</code></td>
+                                <td>Introduces the task</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;context&gt;</code></td>
+                                <td>Background information for users to understand task</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;steps&gt;</code></td>
+                                <td>Contains ordered steps for the entire procedure</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;steps-unordered&gt;</code></td>
+                                <td>Contains unordered steps for the entire procedure</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;steps&gt;</code>, <code>&lt;step&gt;</code>, and <code>&lt;cmd&gt;</code></td>
+                                <td>Contains the steps for the task</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;substeps&gt;, &lt;substep&gt;, &lt;cmd&gt;</code></td>
+                                <td>Contains the substep for the step</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;info&gt;</code></td>
+                                <td>Provides information users need to complete the step</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;stepresult&gt;</code></td>
+                                <td>What happens when step is completed</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;stepxmp&gt;</code></td>
+                                <td>An example of what happens when step is completed</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;choices&gt;</code> and <code>&lt;choice&gt;</code></td>
+                                <td>Displays choices in a bulleted list</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;choicetable&gt;</code></td>
+                                <td>Displays choices in a 2-column table. Describe steps for each choice</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;postreq&gt;</code></td>
+                                <td>Info about what must be done after task is completed</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;example&gt;</code></td>
+                                <td>Example that tells or supports the task</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;result&gt;</code></td>
+                                <td>Expected outcome when task is done</td>
+                            </tr>
+                          </tbody>
+                      </table>
+                    </section>
+
+                    <section>
+                      <img src="img/task-example.png" />
+                    </section>
+                    <section>
+                      <img src="img/task-example-2.png" />
+                    </section>
+
+                    <section>
+                        <h4>Example <code>&lt;task&gt;</code> topic file</h4>
+                        <figure>
+                            <pre><code class="html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!DOCTYPE task PUBLIC
+    "-//OASIS//DTD DITA Task//EN"
+    "/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/task.dtd"&gt;
+
+&lt;task id="expresso-connect"&gt;
+  &lt;title&gt;Connect the expresso machine to a nuclear reactor&lt;/title&gt;
+  &lt;shortdesc&gt;
+    The Expresso Machine can only run on nuclear power.
+    Before you use the machine you must connect it to
+    a nuclear reactor.
+  &lt;/shortdesc&gt;
+
+  &lt;taskbody&gt;
+    &lt;context&gt;
+      &lt;p&gt;To connect the machine to a nuclear reactor:&lt;/p&gt;
+    &lt;/context&gt;
+      &lt;steps&gt;
+        &lt;step&gt;
+          &lt;cmd&gt;
+            Obtain the permits from your nuclear power company.
+          &lt;/cmd&gt;
+          &lt;info&gt;
+            Call the nuclear power company support hotline,
+            and they will provide you with the permits you need.
+          &lt;/info&gt;
+          &lt;stepxmp&gt;
+            The nuclear power company requires a reactor permit,
+            a special outlet, and the espresso machine.
+          &lt;/stepxmp&gt;
+        &lt;/step&gt;
+        &lt;step&gt;
+          &lt;cmd&gt;
+            Connect the machine by doing the following:
+          &lt;/cmd&gt;
+          &lt;substeps&gt;
+            &lt;substep&gt;
+              &lt;cmd&gt;
+                Plug in the machine into the outlet.
+              &lt;/cmd&gt;
+            &lt;/substep&gt;
+            &lt;substep&gt;
+              &lt;cmd&gt;
+                Call the nuclear company to verify the connection.
+              &lt;/cmd&gt;
+            &lt;/substep&gt;
+          &lt;/substeps&gt;
+          &lt;stepresult&gt;
+            The machine is connected to the nuclear reactor.
+          &lt;/stepresult&gt;
+        &lt;/step&gt;
+      &lt;/steps&gt;
+      &lt;postreq&gt;
+        Once the machine is connected to the nuclear reactor,
+        you must call the nuclear company to schedule a test of
+        your machine.
+      &lt;/postreq&gt;
+  &lt;/taskbody&gt;
+&lt;/task&gt;
+</code></pre>
+                        </figure>
+                    </section>
+                    <!-- Resources -->
+                    <section>
+                      <h3>Resources</h3>
+                      <ul>
+                          <li>
+                            DITA 1.2 spec on the <a href="http://docs.oasis-open.org/dita/v1.2/os/spec/langref/task.html" target="_blank">task</a> element
+                          </li>
+                          <li>
+                            Best practice guidelines (Bellamy <span style="font-style:italic;">et al</span>., pp. 39-40).
+                          </li>
+                      </ul>
+                    </section>
+
+                </section>
+                <!-- /END TASK -->
+
+                <!-- HOMEWORK AFTER TASK TOPICS -->
+                <section>
+                  <section>
+                    <h2 class="left-title">
+                      Homework
+                    </h2>
+                    <ul>
+                      <li>
+                        Test out the DITA-OT with the following example topic model: <a href="https://github.com/engl-4814/prose-io" target="_blank" rel="noopenner">prose-io</a>. Take notes about difficulties, insights, interests, questions, etc. Bring your notes to class. The more you test the OT out now, the more prepared you will be when you start writing DITA markup.
+                      </li>
+                      <li>
+                        Conduct a task analysis (Bellamy et al., pp. 19-20) of <em>Hosting a simple website with a Github account and the Github Desktop application</em>.
+                      </li>
+                      <li>
+                        After your task analysis, download the template <a href="https://github.com/engl-4814/dita-template" target="_blank" rel="noopenner">DITA repo</a> and draft a practice task topic file before our next class.
+                      </li>
+                      <li>
+                        Read chapters 3-4 in <cite>DITA Best Practices</cite>, which cover concept and reference topics.
+                      </li>
+                    </ul>
+                  </section>
+                </section>
+
+                <!-- CONCEPT -->
+                <section>
+                  <section>
+                      <h2><code>&lt;concept&gt;</code></h2>
+                  </section>
+
+                  <!-- CONCEPT OVERVIEW -->
+                  <section>
+                      <h3>What is a <code>&lt;concept&gt;</code>?</h3>
+                      <ul>
+                        <li class="fragment">
+                          Supports the goals of the task topics
+                        </li>
+                        <li class="fragment">
+                          Introduces tools/technology
+                        </li>
+                        <li class="fragment">
+                          Digs deeper into particular component/property
+                        </li>
+                      </ul>
+                  </section>
+
+                  <!-- CONCEPT BEST PRACTICES -->
+                  <section>
+                      <h3><code>&lt;concept&gt;</code> best practices</h3>
+                      <ul>
+                        <li class="fragment">
+                          Describe one concept per topic
+                        </li>
+                        <li class="fragment">
+                          Use noun-based phrases for titles
+                        </li>
+                        <li class="fragment">
+                          Use <code>&lt;section&gt;</code> elements to break-up longer concepts
+                        </li>
+                        <li class="fragment">
+                          Use titles for each section
+                        </li>
+                        <li class="fragment">
+                          Use images or other media to aid your concepts
+                        </li>
+                        <li class="fragment">
+                          Use the <code>&lt;term&gt;</code> tag sparingly for most prominent cases of special terminology / jargon.
+                        </li>
+                      </ul>
+                  </section>
+
+                  <!-- CONCEPT TABLE -->
+                  <section>
+                    <h3>Common <code>&lt;concept&gt; elements</code></h3>
+                    <table style="font-size: 70%;">
+                        <thead>
+                            <tr>
+                                <th>DITA ELEMENT</th>
+                                <th>DESCRIPTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                              <td><code>&lt;title&gt;</code></td>
+                              <td>Provides the topic title</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;shortdesc&gt;</code></td>
+                              <td>Introduces the topic</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;conbody&gt;</code></td>
+                              <td>Contains the body of the topic</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;section&gt;</code></td>
+                              <td>Organizes content in a topic into sections</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;sl&gt;</code></td>
+                              <td>Displays a list of short or simple items</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;ul&gt;</code></td>
+                              <td>Displays a content as an unordered bulleted list</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;dl&gt;</code></td>
+                              <td>Displays a list of terms or short concepts and their definitions</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;fig&gt;</code> or <code>&lt;img&gt;</code></td>
+                              <td>Provides a figure and caption so that you can insert graphics</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;term&gt;</code></td>
+                              <td>Highlights new terms</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </section>
+
+                  <section>
+                    <img src="img/concept-example.png" />
+                  </section>
+
+                  <section>
+                    <h3>Resources</h3>
+                    <ul>
+                      <li>
+                        DITA 1.2 Spec on the <a href="http://docs.oasis-open.org/dita/v1.2/os/spec/langref/concept.html" target="_blank">concept</a> element
+                      </li>
+                      <li>
+                        Best practice guidelines (Bellamy <span style="font-style:italic;">et al</span>., p. 50).
+                      </li>
+                    </ul>
+                  </section>
+
+                </section>
+                <!-- /END CONCEPT -->
+
+                <!-- REFERENCE -->
+                <section>
+                  <section>
+                      <h2><code>&lt;reference&gt;</code></h2>
+                  </section>
+
+                  <!-- REF OVERVIEW -->
+                  <section>
+                      <h3>What is a <code>&lt;reference&gt;</code>?</h3>
+                      <ul>
+                          <li class="fragment">
+                            Supports goals of the task topics
+                          </li>
+                          <li class="fragment">
+                            Dig deeper into particular component/property
+                          </li>
+                      </ul>
+                  </section>
+
+                  <!-- REF BEST PRACTICES -->
+                  <section>
+                    <h3><code>&lt;reference&gt;</code> best practices</h3>
+                    <ul>
+                        <li class="fragment">
+                          Describe one type of reference information per topic
+                        </li>
+                        <li class="fragment">
+                          Use noun-based phrases for titles
+                        </li>
+                        <li class="fragment">
+                          Write and design for scannability
+                        </li>
+                        <li class="fragment">
+                          Be consistent about design/elements across topics
+                        </li>
+                        <li>
+                          Use the correct type of table (table vs. simple table, vs. properties)
+                        </li>
+                        <li class="fragment">
+                          Difficulty: Modularize reference info or not. Rule of thumb: If more than 2 pages, break it up, logically.
+                        </li>
+                        <li class="fragment">
+                          All <code>&lt;reference&gt;</code> elements require a <code>&lt;section&gt;</code> element
+                        </li>
+                        <li class="fragment">
+                          Do not "paper" (p. 60) your reference topics. Avoid writing topics that the user does not need. (Example: UI icons.)
+                        </li>
+                    </ul>
+                  </section>
+
+                  <!-- REF TABLE -->
+                  <section>
+                    <h3>Common <code>&lt;reference&gt; elements</code></h3>
+                    <table style="font-size: 70%;">
+                        <thead>
+                            <tr>
+                                <th>DITA ELEMENT</th>
+                                <th>DESCRIPTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                              <td><code>&lt;title&gt;</code></td>
+                              <td>Provides the topic title</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;shortdesc&gt;</code></td>
+                              <td>Introduces the topic</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;refbody&gt;</code></td>
+                              <td>Contains the body of the topic</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;section&gt;</code></td>
+                              <td>Organizes content in a topic into sections</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;table&gt;</code></td>
+                              <td>Contains the table content</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;simpletable&gt;</code></td>
+                              <td>Contains the table content that doesn't require a title</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;properties&gt;</code></td>
+                              <td>Lists properties in a table by type, value, and description</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;ul&gt;</code></td>
+                              <td>Displays a content as an unordered bulleted list</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;dl&gt;</code></td>
+                              <td>Displays a list of terms or short concepts and their definitions</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;example&gt;</code></td>
+                              <td>Contains example content that explains or supports the topics</td>
+                          </tr>
+                          <tr>
+                              <td><code>&lt;parml&gt;</code></td>
+                              <td>Displays parameters in a format similar to a definition list</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </section>
+
+                  <section>
+                    <img src="img/reference-example-1.png" />
+                  </section>
+
+                  <section>
+                    <img src="img/reference-example-2.png" />
+                  </section>
+                  <!-- REF RESOURCES -->
+                  <section>
+                    <h3>Resources</h3>
+                    <ul>
+                      <li>
+                        DITA 1.2 Spec on the <a href="http://docs.oasis-open.org/dita/v1.2/os/spec/langref/reference.html" target="_blank">reference</a> element
+                      </li>
+                      <li>
+                        Best practice guidelines (Bellamy <span style="font-style:italic;">et al</span>., p. 61).
+                      </li>
+                    </ul>
+                  </section>
+
+                </section>
+                <!-- /END REFERENCE -->
+
+            </div>
+        </div>
+
+        <script src="js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || "linear", // default/cube/page/concave/zoom/linear/fade/none
+
+                // Parallax scrolling
+                // parallaxBackgroundImage: "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg",
+                // parallaxBackgroundSize: "2100px 900px",
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: "js/classList.js", condition: function() { return !document.body.classList; } },
+                    { src: "js/marked.js", condition: function() { return !!document.querySelector( "[data-markdown]" ); } },
+                    { src: "js/markdown.js", condition: function() { return !!document.querySelector( "[data-markdown]" ); } },
+                    { src: "js/highlight.js", async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: "js/zoom.js", async: true, condition: function() { return !!document.body.classList; } },
+                    { src: "js/notes.js", async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+        <script async src="http://assets.codepen.io/assets/embed/ei.js"></script>
+    </body>
+</html>
